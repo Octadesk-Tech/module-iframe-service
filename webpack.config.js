@@ -4,7 +4,7 @@ module.exports = {
   mode: 'production',
   entry: path.join(__dirname, 'src', 'index'),
   output: {
-    filename: `bundle.${require('./package.json').version}.js`,
+    filename: `octadesk.iframe.${require('./package.json').version}.min.js`,
     path: path.resolve(__dirname, 'dist')
   },
   module: {

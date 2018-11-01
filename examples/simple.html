@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Simple App</title>
+</head>
+
+<body>
+  <p>Usúario: <span id="usuario"></span></p>
+  <p>Token: <span id="token"></span></p>
+
+  <script src="../dist//octadesk.iframe.0.0.1.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    window.addEventListener('load', function () {
+      var octadeskIframe = new OctadeskIframeService('appid')
+
+      // listen the octadesk events
+      window.addEventListener('onOctadeskSendUserLogged', function (e) {
+        var user = e.detail;
+        document.getElementById('usuario').innerText = JSON.stringify(user);
+      });
+
+      window.addEventListener('onOctadeskSendUserToken', function (e) {
+        var userToken = e.detail;
+        document.getElementById('token').innerText = userToken;
+      });
+
+      // tell octadesk to connect
+      octadeskIframe.connect();
+    });
+  </script>
+</body>
+
+</html>
