@@ -4,26 +4,26 @@ const EVENT_NAME = EVENT_METHOD_NAME === 'attachEvent' ? 'onmessage' : 'message'
 
 const events = {
   'open-ticket'(event) {
-    dispatchCustomEvent('onOctadeskOpenTicket', event.data.ticket)
+    dispatchCustomEvent('octadesk_onOpenTicket', event.data.ticket)
   },
   'after-save-ticket'(event) {
-    dispatchCustomEvent('onOctadeskAfterSaveTicket', event.data.ticket)
+    dispatchCustomEvent('octadesk_onAfterSaveTicket', event.data.ticket)
   },
   'open-person'(event) {
-    dispatchCustomEvent('onOctadeskOpenPerson', event.data.person)
+    dispatchCustomEvent('octadesk_onOpenPerson', event.data.person)
   },
   'after-save-person'(event) {
-    dispatchCustomEvent('onOctadeskAfterSavePerson', event.data.person)
+    dispatchCustomEvent('octadesk_onAfterSavePerson', event.data.person)
   }
 }
 
 LISTENER_EVENT(EVENT_NAME, function (event) {
   if (event.data.userLogged) {
-    dispatchCustomEvent('onOctadeskSendUserLogged', event.data.userLogged)
+    dispatchCustomEvent('octadesk_onSendUserLogged', event.data.userLogged)
   }
 
   if (event.data.userToken) {
-    dispatchCustomEvent('onOctadeskSendUserToken', event.data.userToken)
+    dispatchCustomEvent('octadesk_onSendUserToken', event.data.userToken)
   }
 
   if (events[event.data.name]) {
