@@ -30,6 +30,14 @@ class IframeService {
   }
 
   /**
+   * Open a new tab with the person
+   * @param {GUID} personId - Person Id
+   */
+  openPerson(personId) {
+    this._postEvent('openPerson', { personId })
+  }
+
+  /**
    * Change the current page of Octadesk
    * @param {string} url - A Octadesk internal path
    */
