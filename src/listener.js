@@ -1,34 +1,79 @@
+if (!Object.keys) {
+  Object.keys = (function() {
+    'use strict';
+    var hasOwnProperty = Object.prototype.hasOwnProperty,
+        hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+        dontEnums = [
+          'toString',
+          'toLocaleString',
+          'valueOf',
+          'hasOwnProperty',
+          'isPrototypeOf',
+          'propertyIsEnumerable',
+          'constructor'
+        ],
+        dontEnumsLength = dontEnums.length;
+
+    return function(obj) {
+      if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
+        throw new TypeError('Object.keys chamado de non-object');
+      }
+
+      var result = [], prop, i;
+
+      for (prop in obj) {
+        if (hasOwnProperty.call(obj, prop)) {
+          result.push(prop);
+        }
+      }
+
+      if (hasDontEnumBug) {
+        for (i = 0; i < dontEnumsLength; i++) {
+          if (hasOwnProperty.call(obj, dontEnums[i])) {
+            result.push(dontEnums[i]);
+          }
+        }
+      }
+      return result;
+    };
+  }());
+}
+
+
 const EVENT_METHOD_NAME = window && window.addEventListener ? 'addEventListener' : 'attachEvent'
 const LISTENER_EVENT = window && window[EVENT_METHOD_NAME]
 const EVENT_NAME = EVENT_METHOD_NAME === 'attachEvent' ? 'onmessage' : 'message'
 
 const events = {
-  'open-ticket'(event) {
-    dispatchCustomEvent('octadesk_onOpenTicket', event.data.ticket)
+  'open-ticket'(data) {
+    dispatchCustomEvent('octadesk_onOpenTicket', data)
   },
-  'after-save-ticket'(event) {
-    dispatchCustomEvent('octadesk_onAfterSaveTicket', event.data.ticket)
+  'after-save-ticket'(data) {
+    dispatchCustomEvent('octadesk_onAfterSaveTicket', data)
   },
-  'open-person'(event) {
-    dispatchCustomEvent('octadesk_onOpenPerson', event.data.person)
+  'open-person'(data) {
+    dispatchCustomEvent('octadesk_onOpenPerson', data)
   },
-  'after-save-person'(event) {
-    dispatchCustomEvent('octadesk_onAfterSavePerson', event.data.person)
+  'after-save-person'(data) {
+    dispatchCustomEvent('octadesk_onAfterSavePerson', data)
+  },
+  'userLogged'(data) {
+    dispatchCustomEvent('octadesk_onSendUserLogged', data)
+  },
+  'userToken'(data) {
+    dispatchCustomEvent('octadesk_onSendUserToken', data)
   }
 }
 
 LISTENER_EVENT(EVENT_NAME, function (event) {
-  if (event.data.userLogged) {
-    dispatchCustomEvent('octadesk_onSendUserLogged', event.data.userLogged)
-  }
 
-  if (event.data.userToken) {
-    dispatchCustomEvent('octadesk_onSendUserToken', event.data.userToken)
-  }
+  const currentEvents = Object.keys(event.data);
+  currentEvents.forEach(function(eventName) {
+    if (events[eventName]) {
+      events[eventName](event.data[eventName])
+    }
+  })
 
-  if (events[event.data.name]) {
-    events[event.data.name](event)
-  }
 }, false)
 
 const dispatchCustomEvent = (eventName, data) => {

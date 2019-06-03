@@ -2,7 +2,7 @@
   "name": "@octadesk/iframe",
   "version": "0.0.1",
   "description": "Service to comunicate third party apps with Octadesk",
-  "main": "index.js",
+  "main": "dist/octadesk.iframe.min.js",
   "scripts": {
     "build": "webpack"
   },
@@ -23,7 +23,11 @@
   },
   "homepage": "https://github.com/Octadesk-Tech/module-iframe-service#readme",
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "babel-loader": "^8.0.4"
-  }
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  },
+  "dependencies": {}
 }
