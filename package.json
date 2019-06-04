@@ -1,6 +1,6 @@
 {
   "name": "@octadesk/iframe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Service to comunicate third party apps with Octadesk",
   "main": "dist/octadesk.iframe.min.js",
   "scripts": {
