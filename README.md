@@ -23,17 +23,10 @@ Iframe service to communicate with Octadesk
     const ticket = e.detail
   })
 
-  window.addEventListener('octadesk_onOpenPerson', function(e){
-    const person = e.detail
-  })
-
   window.addEventListener('octadesk_onAfterSaveTicket', function(e){
     const ticket = e.detail
   })
 
-  window.addEventListener('octadesk_onAfterSavePerson', function(e){
-    const person = e.detail
-  })
   // tell octadesk to connect
   octadeskIframe.connect()
 ```
@@ -46,11 +39,7 @@ Iframe service to communicate with Octadesk
 
 - octadesk_onOpenTicket - Receive the ticket that was opened
 
-- octadesk_onOpenPerson - Receive the person that was opened (ticket requester or person profile)
-
 - octadesk_onAfterSaveTicket - Receive the saved ticket
-
-- octadesk_onAfterSavePerson - Receive the saved person (ticket requester or person profile)
 
 ## Methods
 
