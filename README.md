@@ -27,6 +27,10 @@ Iframe service to communicate with Octadesk
     const ticket = e.detail
   })
 
+  window.addEventListener('octadesk_onSendAppData', function(e){
+    const appData = e.detail
+  })
+
   // tell octadesk to connect
   octadeskIframe.connect()
 ```
@@ -40,6 +44,8 @@ Iframe service to communicate with Octadesk
 - octadesk_onOpenTicket - Receive the ticket that was opened
 
 - octadesk_onAfterSaveTicket - Receive the saved ticket
+
+- octadesk_onSendAppData - Receive data of the app
 
 ## Methods
 

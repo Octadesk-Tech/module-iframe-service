@@ -62,6 +62,9 @@ const events = {
   },
   'userToken'(data) {
     dispatchCustomEvent('octadesk_onSendUserToken', data)
+  },
+  'appData'(data) {
+    dispatchCustomEvent('octadesk_onSendAppData', JSON.parse(data))
   }
 }
 
